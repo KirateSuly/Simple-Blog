@@ -94,6 +94,15 @@ body {
   animation: fade-up 0.6s ease-out backwards;
 }
 
+/* 悬停浮动效果 */
+.card-float {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-float:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+}
+
 .noise {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
@@ -119,6 +128,7 @@ input[type="range"].slider::-webkit-slider-thumb {
   appearance: none;
   width: 14px;
   height: 14px;
+  margin-top: -5px; /* 居中：轨道 4px、滑块 14px，(4-14)/2 = -5px，避免小球偏下 */
   border-radius: 9999px;
   background: #ffffff;
   border: none;

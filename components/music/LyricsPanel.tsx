@@ -36,12 +36,14 @@ export default function LyricsPanel() {
       </div>
       <div
         ref={containerRef}
-        className="lyrics h-32 overflow-y-auto overflow-x-hidden scroll-smooth py-2 text-center"
+        className="lyrics h-25 overflow-y-auto overflow-x-hidden scroll-smooth py-2 text-center"
       >
         {lyrics.length === 0 ? (
           <div className="flex flex-col items-center gap-2 py-10 text-sm text-white/40">
             <MusicNoteIcon className="h-5 w-5" />
-            <span>暂无歌词</span>
+            <span>
+              {song?.instrumental ? "纯音乐无歌词，请欣赏吧" : "暂无歌词"}
+            </span>
           </div>
         ) : (
           lyrics.map((line, i) => (
