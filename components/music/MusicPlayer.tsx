@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import { useMusic } from "@/components/music/MusicProvider";
 import {
   MusicNoteIcon,
-  MutedIcon,
   NextIcon,
   PauseIcon,
   PlayIcon,
@@ -29,7 +28,6 @@ export default function MusicPlayer({ compact = false }: { compact?: boolean }) 
     song,
     isPlaying,
     volume,
-    muted,
     currentTime,
     duration,
     lyrics,
@@ -38,7 +36,6 @@ export default function MusicPlayer({ compact = false }: { compact?: boolean }) 
     next,
     prev,
     setVolume,
-    toggleMute,
     seek,
   } = useMusic();
 
@@ -111,22 +108,17 @@ export default function MusicPlayer({ compact = false }: { compact?: boolean }) 
     </button>
   );
 
-  // 音量：点击喇叭静音/取消静音；悬停在喇叭上方弹出垂直音量条
+  // 音量：平时只显示小喇叭，悬停时在下方弹出垂直音量条
   const volumeButton = (
     <div className="group relative">
       <button
         type="button"
-        aria-label={muted ? "取消静音" : "静音"}
-        onClick={toggleMute}
-        className="rounded-full p-2 text-white/80 transition hover:bg-white/10 hover:text-white"
+        aria-label="音量"
+        className="rounded-full p-2 text-white/80 transition translate-x-[20px] hover:bg-white/10 hover:text-white"
       >
-        {muted ? (
-          <MutedIcon className="h-5 w-5" />
-        ) : (
-          <VolumeIcon className="h-5 w-5" />
-        )}
+        <VolumeIcon className="h-5 w-5" />
       </button>
-      <div className="pointer-events-none absolute bottom-full left-1/2 z-10 -translate-x-1/2 rounded-2xl border border-white/15 bg-black/50 p-3 opacity-0 shadow-xl backdrop-blur-xl transition-opacity duration-200 group-hover:pointer-events-auto group-hover:opacity-100">
+      <div className="pointer-events-none absolute left-1/2 bottom-full z-10  -translate-x-1 rounded-2xl border border-white/15 bg-black/50 p-3 opacity-0 shadow-xl backdrop-blur-xl transition-opacity duration-200 group-hover:pointer-events-auto group-hover:opacity-100">
         <VerticalSlider
           value={volume}
           onChange={setVolume}
@@ -176,9 +168,7 @@ export default function MusicPlayer({ compact = false }: { compact?: boolean }) 
   const lyricsNode = (
     <div ref={lyricsRef} className="lyrics overflow-y-auto scroll-smooth text-center">
       {lyrics.length === 0 ? (
-        <p className="py-4 text-sm text-white/40">
-          {song?.instrumental ? "纯音乐无歌词，请欣赏吧" : "暂无歌词"}
-        </p>
+        <p className="py-4 text-sm text-white/40">暂无歌词</p>
       ) : (
         lyrics.map((line, i) => (
           <p

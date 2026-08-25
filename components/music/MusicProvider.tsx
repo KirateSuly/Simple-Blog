@@ -18,7 +18,6 @@ type MusicContextValue = {
   song: Song | undefined;
   isPlaying: boolean;
   volume: number;
-  muted: boolean;
   currentTime: number;
   duration: number;
   lyrics: LyricLine[];
@@ -29,7 +28,6 @@ type MusicContextValue = {
   next: () => void;
   prev: () => void;
   setVolume: (v: number) => void;
-  toggleMute: () => void;
   seek: (t: number) => void;
 };
 
@@ -38,13 +36,10 @@ const MusicContext = createContext<MusicContextValue | null>(null);
 export function MusicProvider({ children }: { children: ReactNode }) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const playingRef = useRef(false);
-  const mutedRef = useRef(false);
-  const lastVolumeRef = useRef(0.8);
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [volume, setVolumeState] = useState(0.5);
-  const [muted, setMuted] = useState(false);
+  const [volume, setVolumeState] = useState(0.8);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [lyrics, setLyrics] = useState<LyricLine[]>([]);
@@ -74,28 +69,9 @@ export function MusicProvider({ children }: { children: ReactNode }) {
 
   const setVolume = useCallback((v: number) => {
     const vol = Math.min(1, Math.max(0, v));
-    if (vol > 0) lastVolumeRef.current = vol;
-    mutedRef.current = vol === 0;
-    setMuted(vol === 0);
     setVolumeState(vol);
     if (audioRef.current) audioRef.current.volume = vol;
   }, []);
-
-  const toggleMute = useCallback(() => {
-    const next = !mutedRef.current;
-    mutedRef.current = next;
-    setMuted(next);
-    const audio = audioRef.current;
-    if (next) {
-      lastVolumeRef.current = volume > 0 ? volume : lastVolumeRef.current;
-      setVolumeState(0);
-      if (audio) audio.volume = 0;
-    } else {
-      const v = lastVolumeRef.current || 0.8;
-      setVolumeState(v);
-      if (audio) audio.volume = v;
-    }
-  }, [volume]);
 
   const seek = useCallback((t: number) => {
     if (audioRef.current) {
@@ -180,7 +156,6 @@ export function MusicProvider({ children }: { children: ReactNode }) {
     song,
     isPlaying,
     volume,
-    muted,
     currentTime,
     duration,
     lyrics,
@@ -191,7 +166,6 @@ export function MusicProvider({ children }: { children: ReactNode }) {
     next,
     prev,
     setVolume,
-    toggleMute,
     seek,
   };
 

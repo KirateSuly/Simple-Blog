@@ -1,5 +1,5 @@
 import Hero from "@/components/home/Hero";
-import BentoGrid from "@/components/home/BentoGrid";
+import Carousel from "@/components/home/Carousel";
 import ContentPreview from "@/components/home/ContentPreview";
 import MusicPlayer from "@/components/music/MusicPlayer";
 import LyricsPanel from "@/components/music/LyricsPanel";
@@ -18,9 +18,7 @@ export default function Home() {
       {/* 歌词面板：通栏拉宽 */}
       <LyricsPanel />
 
-      {/* 轮播 + 静态卡片（bento 板块） */}
-      <BentoGrid />
-
+      <Carousel />
       <ContentPreview />
     </div>
   );

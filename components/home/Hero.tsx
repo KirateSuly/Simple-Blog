@@ -10,18 +10,9 @@ export default function Hero() {
     >
       {/* 头像 + 简介 */}
       <div className="flex items-center gap-5">
-        {site.avatar ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={site.avatar}
-            alt={site.name}
-            className="h-20 w-20 shrink-0 rounded-full object-cover ring-4 ring-white/20"
-          />
-        ) : (
-          <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#8b7cff] to-[#ff7cc0] text-3xl font-bold text-white ring-4 ring-white/20">
-            {site.name.slice(0, 1)}
-          </div>
-        )}
+        <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#8b7cff] to-[#ff7cc0] text-3xl font-bold text-white ring-4 ring-white/20">
+          {site.name.slice(0, 1)}
+        </div>
         <div className="min-w-0">
           <h1 className="text-2xl font-bold">{site.name}</h1>
           <p className="mt-0.5 text-sm text-[#ffd3ea]">{site.signature}</p>
@@ -32,15 +23,15 @@ export default function Hero() {
       </div>
 
       {/* 社交链接 + 数据统计（并列） */}
-      <div className="flex flex-wrap items-center gap-x-35 gap-y-3 border-t border-white/10 pt-4">
-        <div className="flex flex-wrap items-center gap-3">
+      <div className="flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-white/10 pt-4">
+        <div className="flex flex-wrap items-center gap-2">
           {site.social.map((s) => (
             <a
               key={s.label}
               href={s.href}
               target="_blank"
               rel="noreferrer"
-              className="rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs text-white/80 transition hover:bg-white/20 hover:text-white"
+              className="rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs text-white/80 transition hover:bg-white/20 hover:text-white"
             >
               {s.label}
             </a>
@@ -51,10 +42,10 @@ export default function Hero() {
             <Link
               key={s.label}
               href={s.href}
-              className="flex items-center gap-2 text-white/60 transition hover:text-white"
+              className="flex items-baseline gap-1 text-white/60 transition hover:text-white"
             >
               <span className="text-xs">{s.label}</span>
-              <span className="bg-gradient-to-r from-[#c7bfff] to-[#ffd3ea] bg-clip-text  text-base font-bold text-transparent">
+              <span className="bg-gradient-to-r from-[#c7bfff] to-[#ffd3ea] bg-clip-text text-base font-bold text-transparent">
                 {s.value}
               </span>
             </Link>

@@ -56,10 +56,10 @@ export default function VerticalSlider({
         className="absolute bottom-0 left-1/2 w-1 -translate-x-1/2 rounded-full bg-gradient-to-t from-[#8b7cff] to-[#ff7cc0]"
         style={{ height: `${value * 100}%` }}
       />
-      {/* 滑块圆点（贴紧轨道两端，静音时落到底部） */}
+      {/* 滑块圆点 */}
       <div
         className="absolute left-1/2 h-3.5 w-3.5 -translate-x-1/2 rounded-full bg-white shadow-[0_0_8px_rgba(139,124,255,0.9)]"
-        style={{ bottom: `${value * (height - 14)}px` }}
+        style={{ bottom: `calc(${value * 100}% - 7px)` }}
       />
     </div>
   );
