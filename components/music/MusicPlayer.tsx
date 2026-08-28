@@ -133,6 +133,9 @@ export default function MusicPlayer({ compact = false }: { compact?: boolean }) 
           height={90}
           ariaLabel="音量"
         />
+        <div className="mt-2 text-center text-xs font-semibold tabular-nums text-white/90">
+          {Math.round(volume * 100)}%
+        </div>
       </div>
     </div>
   );

@@ -1,7 +1,11 @@
-import PagePlaceholder from "@/components/ui/PagePlaceholder";
+import PageHeader from "@/components/ui/PageHeader";
+import ArticleList from "@/components/articles/ArticleList";
 
 export default function ArticlesPage() {
   return (
-    <PagePlaceholder title="文章" desc="这里将展示我的正式文章，支持标签筛选与分页。" />
+    <div>
+      <PageHeader title="文章" subtitle="记录代码、技术与思考" accent="文" />
+      <ArticleList />
+    </div>
   );
 }
