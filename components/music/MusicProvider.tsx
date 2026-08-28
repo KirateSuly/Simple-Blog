@@ -35,15 +35,18 @@ type MusicContextValue = {
 
 const MusicContext = createContext<MusicContextValue | null>(null);
 
+// 默认音量（0 ~ 1）：修改默认音量只需改这一处
+const DEFAULT_VOLUME = 0.3;
+
 export function MusicProvider({ children }: { children: ReactNode }) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const playingRef = useRef(false);
   const mutedRef = useRef(false);
-  const lastVolumeRef = useRef(0.8);
+  const lastVolumeRef = useRef(DEFAULT_VOLUME);
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [volume, setVolumeState] = useState(0.5);
+  const [volume, setVolumeState] = useState(DEFAULT_VOLUME);
   const [muted, setMuted] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -91,7 +94,7 @@ export function MusicProvider({ children }: { children: ReactNode }) {
       setVolumeState(0);
       if (audio) audio.volume = 0;
     } else {
-      const v = lastVolumeRef.current || 0.8;
+      const v = lastVolumeRef.current || DEFAULT_VOLUME;
       setVolumeState(v);
       if (audio) audio.volume = v;
     }
@@ -108,7 +111,7 @@ export function MusicProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const audio = new Audio();
     audio.preload = "metadata";
-    audio.volume = 0.8;
+    audio.volume = DEFAULT_VOLUME;
     audioRef.current = audio;
     return () => {
       audio.pause();

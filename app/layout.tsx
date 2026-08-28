@@ -5,6 +5,7 @@ import Background from "@/components/layout/Background";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Clock from "@/components/home/Clock";
+import MiniPlayer from "@/components/music/MiniPlayer";
 import { MusicProvider } from "@/components/music/MusicProvider";
 
 export const metadata: Metadata = {
@@ -22,6 +23,7 @@ export default function RootLayout({
         <Clock />
         <MusicProvider>
           <Navbar />
+          <MiniPlayer />
           <main className="relative z-10 mx-auto w-full max-w-6xl px-4 pb-20 pt-28 sm:px-6">
             {children}
           </main>

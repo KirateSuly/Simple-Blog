@@ -6,6 +6,8 @@ export const site = {
   backgroundImage: "/bg.jpg",
   // 头像：留空则显示名字首字母的渐变圆；填入 /public 下的图片路径（如 "/avatar.jpg"）或外链 URL 即可生效
   avatar: "avatar.png",
+  // 左上角时间球背景：留空用玻璃默认；填入 /public 下图片路径（如 "/clock.jpg"）即可显示背景图
+  clockImage: "",
   social: [
     { label: "GitHub", href: "https://github.com/KirateSuly" },
     { label: "Email", href: "mailto:you@example.com" },
@@ -59,7 +61,7 @@ export const bento = {
   },
   theme: {
     title: "箴言",
-    desc: "流萤飞舞的深空",
-    image:"/covers/cover4.jpg",
+    quotes: ["日复一日，水滴石穿", "千里之行，始于足下", "不积跬步，无以至千里", "没有天赋，那就反复"],
+    image: "/covers/cover4.jpg",
   },
 };
