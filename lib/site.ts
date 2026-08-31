@@ -15,13 +15,6 @@ export const site = {
   ],
 };
 
-export const stats = [
-  { label: "文章", value: "3", href: "/articles" },
-  { label: "说说", value: "3", href: "/moments" },
-  { label: "项目", value: "3", href: "/projects" },
-  { label: "音乐", value: "3", href: "/music" },
-];
-
 // bento 板块数据：轮播（insights）+ 静态卡片（photo / records / theme）
 export const bento = {
   insights: [

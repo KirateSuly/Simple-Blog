@@ -207,9 +207,8 @@ export default function MusicPlayer({ compact = false }: { compact?: boolean }) 
     return (
       <section className="glass-strong fade-up flex h-full flex-col items-center rounded-3xl p-5 text-center transition-transform duration-300 hover:scale-[1.02]">
         <div
-          className={`h-20 w-20 shrink-0 overflow-hidden rounded-full ring-2 ring-white/20 ${
-            isPlaying ? "animate-spin-slow" : ""
-          }`}
+          className="h-20 w-20 shrink-0 overflow-hidden rounded-full ring-2 ring-white/20 animate-spin-slow"
+          style={{ animationPlayState: isPlaying ? "running" : "paused" }}
         >
           {coverNode}
         </div>
@@ -240,9 +239,8 @@ export default function MusicPlayer({ compact = false }: { compact?: boolean }) 
       <div className="flex flex-col gap-5 lg:flex-row lg:items-center">
         <div className="flex items-center gap-4 lg:w-64">
           <div
-            className={`relative h-16 w-16 shrink-0 overflow-hidden rounded-full ring-2 ring-white/20 ${
-              isPlaying ? "animate-spin-slow" : ""
-            }`}
+            className="relative h-16 w-16 shrink-0 overflow-hidden rounded-full ring-2 ring-white/20 animate-spin-slow"
+            style={{ animationPlayState: isPlaying ? "running" : "paused" }}
           >
             {coverNode}
           </div>

@@ -146,11 +146,21 @@ input[type="range"].slider::-moz-range-thumb {
   border: none;
 }
 
-/* ---------- 歌词滚动条 ---------- */
-.lyrics::-webkit-scrollbar {
-  width: 4px;
+/* ---------- 隐藏滚动条（滚动区域仍可滚动） ---------- */
+.hidden-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+  overflow-x: hidden;
 }
-.lyrics::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 9999px;
+.hidden-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.lyrics {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  overflow-x: hidden;
+}
+.lyrics::-webkit-scrollbar {
+  display: none;
 }

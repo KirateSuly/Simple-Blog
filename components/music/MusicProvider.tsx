@@ -13,12 +13,15 @@ import {
 import { playlist, type Song } from "@/lib/music";
 import { parseLrc, findLyricIndex, type LyricLine } from "@/lib/lrc";
 
+export type PlayMode = "order" | "loop" | "random";
+
 type MusicContextValue = {
   currentIndex: number;
   song: Song | undefined;
   isPlaying: boolean;
   volume: number;
   muted: boolean;
+  mode: PlayMode;
   currentTime: number;
   duration: number;
   lyrics: LyricLine[];
@@ -31,6 +34,8 @@ type MusicContextValue = {
   setVolume: (v: number) => void;
   toggleMute: () => void;
   seek: (t: number) => void;
+  selectSong: (index: number) => void;
+  cycleMode: () => void;
 };
 
 const MusicContext = createContext<MusicContextValue | null>(null);
@@ -38,28 +43,58 @@ const MusicContext = createContext<MusicContextValue | null>(null);
 // 默认音量（0 ~ 1）：修改默认音量只需改这一处
 const DEFAULT_VOLUME = 0.3;
 
+function randomIndex(cur: number) {
+  if (playlist.length <= 1) return cur;
+  let n = cur;
+  while (n === cur) n = Math.floor(Math.random() * playlist.length);
+  return n;
+}
+
 export function MusicProvider({ children }: { children: ReactNode }) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const playingRef = useRef(false);
   const mutedRef = useRef(false);
   const lastVolumeRef = useRef(DEFAULT_VOLUME);
+  const modeRef = useRef<PlayMode>("order");
+  const currentIndexRef = useRef(0);
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolumeState] = useState(DEFAULT_VOLUME);
   const [muted, setMuted] = useState(false);
+  const [mode, setMode] = useState<PlayMode>("order");
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [lyrics, setLyrics] = useState<LyricLine[]>([]);
 
   const song = playlist[currentIndex];
 
-  const next = useCallback(() => {
-    setCurrentIndex((i) => (i + 1) % playlist.length);
+  useEffect(() => {
+    modeRef.current = mode;
+  }, [mode]);
+  useEffect(() => {
+    currentIndexRef.current = currentIndex;
+  }, [currentIndex]);
+
+  const cycleMode = useCallback(() => {
+    setMode((m) => (m === "order" ? "loop" : m === "loop" ? "random" : "order"));
   }, []);
+
+  const getNextIndex = useCallback((cur: number) => {
+    if (modeRef.current === "random") return randomIndex(cur);
+    return (cur + 1) % playlist.length;
+  }, []);
+
+  const next = useCallback(() => {
+    setCurrentIndex((i) => getNextIndex(i));
+  }, [getNextIndex]);
 
   const prev = useCallback(() => {
     setCurrentIndex((i) => (i - 1 + playlist.length) % playlist.length);
+  }, []);
+
+  const selectSong = useCallback((index: number) => {
+    setCurrentIndex(((index % playlist.length) + playlist.length) % playlist.length);
   }, []);
 
   const play = useCallback(() => {
@@ -154,7 +189,21 @@ export function MusicProvider({ children }: { children: ReactNode }) {
       setIsPlaying(false);
       playingRef.current = false;
     };
-    const onEnded = () => next();
+    const onEnded = () => {
+      const cur = currentIndexRef.current;
+      const m = modeRef.current;
+      // 顺序模式：最后一首结束则停止
+      if (m === "order" && cur === playlist.length - 1) {
+        if (audio) audio.currentTime = 0;
+        setIsPlaying(false);
+        playingRef.current = false;
+        return;
+      }
+      // 随机:随机下一首；循环/顺序:顺序下一首(循环则无限)
+      setCurrentIndex((i) =>
+        m === "random" ? randomIndex(i) : (i + 1) % playlist.length
+      );
+    };
 
     audio.addEventListener("timeupdate", onTime);
     audio.addEventListener("durationchange", onDur);
@@ -171,7 +220,7 @@ export function MusicProvider({ children }: { children: ReactNode }) {
       audio.removeEventListener("pause", onPause);
       audio.removeEventListener("ended", onEnded);
     };
-  }, [next]);
+  }, []);
 
   const currentLyricIndex = useMemo(
     () => findLyricIndex(lyrics, currentTime),
@@ -184,6 +233,7 @@ export function MusicProvider({ children }: { children: ReactNode }) {
     isPlaying,
     volume,
     muted,
+    mode,
     currentTime,
     duration,
     lyrics,
@@ -196,6 +246,8 @@ export function MusicProvider({ children }: { children: ReactNode }) {
     setVolume,
     toggleMute,
     seek,
+    selectSong,
+    cycleMode,
   };
 
   return (
