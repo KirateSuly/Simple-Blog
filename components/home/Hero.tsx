@@ -1,6 +1,18 @@
 import Link from "next/link";
-import { site, stats } from "@/lib/site";
+import { site } from "@/lib/site";
 import GlassCard from "@/components/ui/GlassCard";
+import { articles } from "@/lib/articles";
+import { moments } from "@/lib/moments";
+import { projects } from "@/lib/projects";
+import { playlist } from "@/lib/music";
+
+// 与内容数据同步的实际数量统计
+const stats = [
+  { label: "文章", value: String(articles.length), href: "/articles" },
+  { label: "说说", value: String(moments.length), href: "/moments" },
+  { label: "项目", value: String(projects.length), href: "/projects" },
+  { label: "音乐", value: String(playlist.length), href: "/music" },
+];
 
 export default function Hero() {
   return (

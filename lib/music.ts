@@ -20,20 +20,20 @@ export const playlist: Song[] = [
     cover: "/covers/cover3.jpg",
   },
   {
+    id: "2",
+    title: "Iknewyou",
+    artist: "Demo Artist",
+    src: "/music/mixed matches - Iknewyou.mp3",
+    lrc:"/lyrics/mixed matches - Iknewyou.lrc",
+    cover: "/covers/cover2.jpg",
+  },
+  {
     id: "3",
     title: "愛（slow ver）",
     artist: "Demo Artist",
     instrumental:true,
     src: "/music/Seto - 愛（slow ver）.mp3",
     cover: "/covers/cover1.jpg",
-  },
-  {
-    id: "3",
-    title: "Iknewyou",
-    artist: "Demo Artist",
-    src: "/music/mixed matches - Iknewyou.mp3",
-    lrc:"/lyrics/mixed matches - Iknewyou.lrc",
-    cover: "/covers/cover2.jpg",
   },
   {
     id: "4",
