@@ -93,7 +93,7 @@ export default function MusicCenter() {
 
   return (
     <div>
-      <PageHeader title="音乐" subtitle="戴上耳机，享受此刻吧" accent="♪" />
+      <PageHeader title="音乐" subtitle="戴上耳机，享受此刻吧" center />
 
       <div className="grid gap-6 lg:grid-cols-[2fr_3fr]">
         {/* 播放器（左） */}

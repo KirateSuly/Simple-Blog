@@ -5,7 +5,7 @@ export const site = {
   // 背景图：留空则使用默认深色渐变；填入 /public 下的图片路径（如 "/bg.jpg"）或外链 URL 即可生效
   backgroundImage: "/bg.jpg",
   // 头像：留空则显示名字首字母的渐变圆；填入 /public 下的图片路径（如 "/avatar.jpg"）或外链 URL 即可生效
-  avatar: "avatar.png",
+  avatar: "/avatar.png",
   // 左上角时间球背景：留空用玻璃默认；填入 /public 下图片路径（如 "/clock.jpg"）即可显示背景图
   clockImage: "",
   social: [
