@@ -2,11 +2,26 @@ export default function PageHeader({
   title,
   subtitle,
   accent,
+  center = false,
 }: {
   title: string;
   subtitle: string;
   accent?: string;
+  center?: boolean;
 }) {
+  // 居中模式（类似说说页）
+  if (center) {
+    return (
+      <div className="fade-up mb-10 text-center">
+        <h1 className="bg-gradient-to-r from-white to-white/60 bg-clip-text text-4xl font-bold text-transparent sm:text-5xl">
+          {title}
+        </h1>
+        <p className="mt-3 text-sm text-white/60">{subtitle}</p>
+      </div>
+    );
+  }
+
+  // 左对齐 + 渐变图标（类似音乐页）
   return (
     <div className="fade-up mb-8">
       <div className="flex items-center gap-4">
