@@ -63,4 +63,11 @@ export const moments: Moment[] = [
     images:["/covers/cover5.jpg"],
     location:"浙江 · 宁波"
   },
+  {
+    id: "10",
+    text: "今天把AstrBot的bug修复啦，因为网络的问题请求总是被拦截，换成热点就行啦",
+    date:"2026.10.23",
+    images:["/covers/cover2.jpg"],
+    location:"浙江 · 杭州"
+  },
 ];
